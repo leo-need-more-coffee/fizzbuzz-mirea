@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
-#include <stdint.h>
-#include <stddef.h>
 #include <pthread.h>
-#include <math.h>
 
 #define NUM_THREADS 32
 
