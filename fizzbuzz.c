@@ -21,29 +21,12 @@ void* from_to(void* arg) {
     int start = data->start;
     int end = data->end;
 
-    char* result = malloc(pow(2, 29)); // Assuming a maximum size
-    if (result == NULL) {
-        perror("Memory allocation failed");
-        exit(1);
-    }
+    char* result = malloc(2 << 28); // Assuming a maximum size
 
     char* ptr = result;
     for (int i = start; i < end; i += 15) {
-        ptr += sprintf(ptr, "%d\n", i);
-        ptr += sprintf(ptr, "%d\n", i + 1);
-        ptr += sprintf(ptr, "%dFizz\n", i + 2);
-        ptr += sprintf(ptr, "%d\n", i + 3);
-        ptr += sprintf(ptr, "%dBuzz\n", i + 4);
-        ptr += sprintf(ptr, "%dFizz\n", i + 5);
-        ptr += sprintf(ptr, "%d\n", i + 6);
-        ptr += sprintf(ptr, "%d\n", i + 7);
-        ptr += sprintf(ptr, "%dFizz\n", i + 8);
-        ptr += sprintf(ptr, "%dBuzz\n", i + 9);
-        ptr += sprintf(ptr, "%d\n", i + 10);
-        ptr += sprintf(ptr, "%dFizz\n", i + 11);
-        ptr += sprintf(ptr, "%d\n", i + 12);
-        ptr += sprintf(ptr, "%d\n", i + 13);
-        ptr += sprintf(ptr, "%dFizzBuzz\n", i + 14);
+        ptr += sprintf(ptr, "%d\n%d\n%dFizz\n%d\n%dBuzz\n%dFizz\n%d\n%d\n%dFizz\n%dBuzz\n%d\n%dFizz\n%d\n%d\n%dFizzBuzz\n", i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14);
+
     }
 
     data->result = result;
