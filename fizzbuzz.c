@@ -20,7 +20,7 @@ void* from_to(void* arg) {
     char* result = malloc(2 << 28); 
 
     char* ptr = result;
-    for (int i = start; i < end; i += 15)
+    for (int i = start; i < end; i+=15)
         ptr += sprintf(ptr, "%d\n%d\n%dFizz\n%d\n%dBuzz\n%dFizz\n%d\n%d\n%dFizz\n%dBuzz\n%d\n%dFizz\n%d\n%d\n%dFizzBuzz\n", i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14);
 
     data->result = result;
@@ -41,6 +41,7 @@ int main() {
 
     for (int i = 0; i < NUM_THREADS; i++) {
         pthread_join(threads[i], NULL);
+        //printf(thread_data[i].result);
         free(thread_data[i].result);
 
     }
