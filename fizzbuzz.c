@@ -16,7 +16,7 @@ int itoa_(int number, char *buf) {
     char tmpbuf[12];
     char *cur = tmpbuf+11;
     *cur = '\n';
-    int i = 1;  // start from 1 char - newline
+    int i = 1;
     for (; number > 0; i++) {
         cur--;
         int tmp = number % 10;
@@ -82,7 +82,7 @@ int main() {
 
     for (int i = 0; i < NUM_THREADS; i++) {
         pthread_join(threads[i], NULL);
-        printf(thread_data[i].result);
+        //printf(thread_data[i].result);
         free(thread_data[i].result);
 
     }
