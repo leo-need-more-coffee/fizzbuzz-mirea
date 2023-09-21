@@ -5,7 +5,6 @@
 #include <string.h>
 
 #define NUM_THREADS 32
-
 typedef struct {
     int start;
     int end;
@@ -27,8 +26,6 @@ int itoa_(int number, char *buf) {
     return i;
 }
 
-
-
 void* from_to(void* arg) {
     ThreadData* data = (ThreadData*)arg;
 
@@ -38,29 +35,29 @@ void* from_to(void* arg) {
     char* result = malloc(2 << 28); 
 
     char* ptr = result;
-    for (int i = start; i < end; i+=15)
+    for (int i = start; i < end;)
     {
-        ptr += itoa_(i, ptr);
-        ptr += itoa_(i + 1, ptr);
-        ptr += itoa_(i + 2, ptr);
+        ptr += itoa_(i++, ptr);
+        ptr += itoa_(i++, ptr);
+        ptr += itoa_(i++, ptr);
         memcpy(ptr, "Fizz\n", 5); ptr += 5;
-        ptr += itoa_(i + 3, ptr);
-        ptr += itoa_(i + 4, ptr);
+        ptr += itoa_(i++, ptr);
+        ptr += itoa_(i++, ptr);
         memcpy(ptr, "Buzz\n", 5); ptr += 5;
-        ptr += itoa_(i + 5, ptr);
+        ptr += itoa_(i++, ptr);
         memcpy(ptr, "Fizz\n", 5); ptr += 5;
-        ptr += itoa_(i + 6, ptr);
-        ptr += itoa_(i + 7, ptr);
-        ptr += itoa_(i + 8, ptr);
+        ptr += itoa_(i++, ptr);
+        ptr += itoa_(i++, ptr);
+        ptr += itoa_(i++, ptr);
         memcpy(ptr, "Fizz\n", 5); ptr += 5;
-        ptr += itoa_(i + 9, ptr);
+        ptr += itoa_(i++, ptr);
         memcpy(ptr, "Buzz\n", 5); ptr += 5;
-        ptr += itoa_(i + 10, ptr); 
-        ptr += itoa_(i + 11, ptr);
+        ptr += itoa_(i++, ptr); 
+        ptr += itoa_(i++, ptr);
         memcpy(ptr, "Fizz\n", 5); ptr += 5;
-        ptr += itoa_(i + 12, ptr);
-        ptr += itoa_(i + 13, ptr);
-        ptr += itoa_(i + 14, ptr);
+        ptr += itoa_(i++, ptr);
+        ptr += itoa_(i++, ptr);
+        ptr += itoa_(i++, ptr);
         memcpy(ptr, "FizzBuzz\n", 9); ptr += 9;
     }
 
@@ -88,8 +85,6 @@ int main() {
     }
 
     end_time = clock();
-
-
     printf("Execution time: %f seconds\n", (double)(end_time - start_time) / (4.5 * 1000000000 * 16));
 
     return 0;
