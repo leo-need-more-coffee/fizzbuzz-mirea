@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <pthread.h>
+#include <string.h>
 
 #define NUM_THREADS 32
 
@@ -10,6 +11,23 @@ typedef struct {
     int end;
     char* result;
 } ThreadData;
+
+int itoa_(int number, char *buf) {
+    char tmpbuf[12];
+    char *cur = tmpbuf+11;
+    *cur = '\n';
+    int i = 1;  // start from 1 char - newline
+    for (; number > 0; i++) {
+        cur--;
+        int tmp = number % 10;
+        number /= 10;
+        *cur = tmp + '0';
+    }
+    memcpy(buf, cur, i);
+    return i;
+}
+
+
 
 void* from_to(void* arg) {
     ThreadData* data = (ThreadData*)arg;
@@ -21,7 +39,30 @@ void* from_to(void* arg) {
 
     char* ptr = result;
     for (int i = start; i < end; i+=15)
-        ptr += sprintf(ptr, "%d\n%d\n%dFizz\n%d\n%dBuzz\n%dFizz\n%d\n%d\n%dFizz\n%dBuzz\n%d\n%dFizz\n%d\n%d\n%dFizzBuzz\n", i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14);
+    {
+        ptr += itoa_(i, ptr);
+        ptr += itoa_(i + 1, ptr);
+        ptr += itoa_(i + 2, ptr);
+        memcpy(ptr, "Fizz\n", 5); ptr += 5;
+        ptr += itoa_(i + 3, ptr);
+        ptr += itoa_(i + 4, ptr);
+        memcpy(ptr, "Buzz\n", 5); ptr += 5;
+        ptr += itoa_(i + 5, ptr);
+        memcpy(ptr, "Fizz\n", 5); ptr += 5;
+        ptr += itoa_(i + 6, ptr);
+        ptr += itoa_(i + 7, ptr);
+        ptr += itoa_(i + 8, ptr);
+        memcpy(ptr, "Fizz\n", 5); ptr += 5;
+        ptr += itoa_(i + 9, ptr);
+        memcpy(ptr, "Buzz\n", 5); ptr += 5;
+        ptr += itoa_(i + 10, ptr); 
+        ptr += itoa_(i + 11, ptr);
+        memcpy(ptr, "Fizz\n", 5); ptr += 5;
+        ptr += itoa_(i + 12, ptr);
+        ptr += itoa_(i + 13, ptr);
+        ptr += itoa_(i + 14, ptr);
+        memcpy(ptr, "FizzBuzz\n", 9); ptr += 9;
+    }
 
     data->result = result;
     pthread_exit(NULL);
@@ -41,7 +82,7 @@ int main() {
 
     for (int i = 0; i < NUM_THREADS; i++) {
         pthread_join(threads[i], NULL);
-        //printf(thread_data[i].result);
+        printf(thread_data[i].result);
         free(thread_data[i].result);
 
     }
