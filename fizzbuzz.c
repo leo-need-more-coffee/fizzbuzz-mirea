@@ -3,7 +3,6 @@
 #include <time.h>
 #include <pthread.h>
 #include <string.h>
-#include "ft_memcpy.c"
 
 #define NUM_THREADS 32
 typedef struct {
