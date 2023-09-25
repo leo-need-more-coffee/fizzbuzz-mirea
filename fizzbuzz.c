@@ -3,6 +3,7 @@
 #include <time.h>
 #include <pthread.h>
 #include <string.h>
+#include "ft_memcpy.c"
 
 #define NUM_THREADS 32
 typedef struct {
@@ -10,6 +11,7 @@ typedef struct {
     int end;
     char* result;
 } ThreadData;
+
 
 int itoa_(int number, char *buf) {
     char tmpbuf[12];
@@ -85,7 +87,7 @@ int main() {
     }
 
     end_time = clock();
-    printf("Execution time: %f seconds\n", (double)(end_time - start_time) / (4.5 * 1000000000 * 16));
+    printf("Execution time: %f seconds\n", (double)(end_time - start_time) / (4.5 * 100000 * 16));
 
     return 0;
 }
